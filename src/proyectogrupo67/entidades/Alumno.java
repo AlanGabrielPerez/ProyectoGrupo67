@@ -17,25 +17,37 @@ public class Alumno {
     private String apellido;
     private String nombre;
     private LocalDate fechaNacimiento;
-    private Boolean activo;
+    private boolean activo;
+    private int dni;
 
     public Alumno() {
     }
 
-    public Alumno(int idAlumno, String apellido, String nombre, LocalDate fechaNacimiento, Boolean activo) {
+    public Alumno(int idAlumno, String apellido, String nombre, LocalDate fechaNacimiento, boolean activo, int dni) {
         this.idAlumno = idAlumno;
         this.apellido = apellido;
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
         this.activo = activo;
+        this.dni = dni;
     }
 
-    public Alumno(String apellido, String nombre, LocalDate fechaNacimiento, Boolean activo) {
+    public Alumno(String apellido, String nombre, LocalDate fechaNacimiento, boolean activo, int dni) {
         this.apellido = apellido;
         this.nombre = nombre;
         this.fechaNacimiento = fechaNacimiento;
         this.activo = activo;
+        this.dni = dni;
     }
+
+    public int getDni() {
+        return dni;
+    }
+
+    public void setDni(int dni) {
+        this.dni = dni;
+    }
+    
 
     public int getIdAlumno() {
         return idAlumno;
@@ -69,7 +81,7 @@ public class Alumno {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Boolean getActivo() {
+    public boolean isActivo() {
         return activo;
     }
 

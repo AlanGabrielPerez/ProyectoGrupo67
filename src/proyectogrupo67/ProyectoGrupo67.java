@@ -5,6 +5,10 @@
  */
 package proyectogrupo67;
 
+import java.time.LocalDate;
+import proyectogrupo67.ADatos.AlumnoData;
+import proyectogrupo67.entidades.Alumno;
+
 /**
  *
  * @author Asus
@@ -15,7 +19,9 @@ public class ProyectoGrupo67 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Alumno alu = new Alumno ("manuel", "lopez", LocalDate.of(1998, 02, 15), false, 111233);
+        AlumnoData enviar = new AlumnoData();
+        enviar.guardarAlumno(alu);
     }
     
 }
