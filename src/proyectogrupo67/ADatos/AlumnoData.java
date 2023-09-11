@@ -55,7 +55,7 @@ public class AlumnoData {
     
     public void modificarAlumno(Alumno alumno){
         
-        String sql="UPDATE alumno SET dni= ?,apelido=?, nombre=?,fechaNacimiento=?, activo=?, WHERE idAlumno=?" ;
+        String sql="UPDATE `alumno` SET `dni`= ? ,apellido=?,nombre=?,fechaN=?,estado=? WHERE idAlumno = ?" ;
         
         try {
             PreparedStatement ps=con.prepareStatement(sql);
@@ -63,12 +63,13 @@ public class AlumnoData {
             ps.setString(2, alumno.getApellido());
             ps.setString(3, alumno.getNombre());
             ps.setDate(4, Date.valueOf(alumno.getFechaNacimiento()));
-            ps.setInt(5, alumno.getIdAlumno());
-            int exito= ps.executeUpdate();
+            ps.setBoolean(5, true);
+            ps.setInt(6, alumno.getIdAlumno());
+            int exito = ps.executeUpdate();
             
-            if (exito ==1 ){
+            if (exito == 1 ){
                 
-                JOptionPane.showMessageDialog(null, "Alumno modificado");
+              JOptionPane.showMessageDialog(null, "Alumno modificado");
                 
             }
             
