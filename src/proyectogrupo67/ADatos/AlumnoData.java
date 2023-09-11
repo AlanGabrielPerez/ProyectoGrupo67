@@ -10,10 +10,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 import proyectogrupo67.entidades.Alumno;
@@ -55,6 +51,33 @@ public class AlumnoData {
         } catch (SQLException ex) {
             System.out.println("error en el preparedStatement" + ex.getMessage());
         }
+    }
+    
+    public void modificarAlumno(Alumno alumno){
+        
+        String sql="UPDATE alumno SET dni= ?,apelido=?, nombre=?,fechaNacimiento=?, activo=?, WHERE idAlumno=?" ;
+        
+        try {
+            PreparedStatement ps=con.prepareStatement(sql);
+            ps.setInt(1, alumno.getDni());
+            ps.setString(2, alumno.getApellido());
+            ps.setString(3, alumno.getNombre());
+            ps.setDate(4, Date.valueOf(alumno.getFechaNacimiento()));
+            ps.setInt(5, alumno.getIdAlumno());
+            int exito= ps.executeUpdate();
+            
+            if (exito ==1 ){
+                
+                JOptionPane.showMessageDialog(null, "Alumno modificado");
+                
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de Update");
+        }
+        
+        
+        
     }
     
 }
