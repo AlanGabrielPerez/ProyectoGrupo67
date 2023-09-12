@@ -22,7 +22,10 @@ public class ProyectoGrupo67 {
         Alumno alu = new Alumno (7,"manuel", "lopez lopez", LocalDate.of(1998, 02, 15), false, 111233);
         AlumnoData enviar = new AlumnoData();
         //enviar.guardarAlumno(alu);
-        enviar.modificarAlumno(alu);
+        //enviar.modificarAlumno(alu);
+        Alumno alum = enviar.buscarAlumnoId(7);
+        alum.toString();
+        
     }
     
 }
