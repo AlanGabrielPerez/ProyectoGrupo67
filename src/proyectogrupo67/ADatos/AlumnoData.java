@@ -99,8 +99,6 @@ public class AlumnoData {
             alumno.setFechaNacimiento(rs.getDate("fechaN").toLocalDate());
             alumno.setActivo(true);
              
-            //Alumno alu = new Alumno (id,rs.getString("apellido"),rs.getString("nombre"),rs.getDate("fechaN").toLocalDate(),true,rs.getInt("dni"));
-            //alumno = alu;
             } else {
             JOptionPane.showMessageDialog(null, "Alumno no encontrado");
             }
@@ -110,5 +108,33 @@ public class AlumnoData {
         }
     return alumno;
     }
+    
+    public Alumno buscarAlumnoDni(int dni){
+    String sql = "SELECT `idAlumno`, `dni`, `apellido`, `nombre`, `fechaN`, `estado` FROM `alumno` WHERE dni = ? and estado = 1";
+    Alumno alumno = null;
+    
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, dni);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()){
+            alumno = new Alumno();
+            alumno.setIdAlumno(rs.getInt("idAlumno"));
+            alumno.setDni(rs.getInt("dni"));
+            alumno.setApellido(rs.getString("apellido"));
+            alumno.setNombre(rs.getString("nombre"));
+            alumno.setFechaNacimiento(rs.getDate("fechaN").toLocalDate());
+            alumno.setActivo(true);
+             
+            } else {
+            JOptionPane.showMessageDialog(null, "Alumno no encontrado");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Error de busqueda");
+        }
+    return alumno;
+    }
+    
     
 }
