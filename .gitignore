@@ -30,3 +30,5 @@ nbproject/private/private.properties
 nbproject/private/config.properties
 nbproject/private/private.properties
 nbproject/private/private.properties
+*.properties
+src/proyectogrupo67/ProyectoGrupo67.java
