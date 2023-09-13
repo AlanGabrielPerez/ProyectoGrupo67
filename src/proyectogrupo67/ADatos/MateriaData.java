@@ -10,11 +10,15 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import static java.util.Collections.list;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 import proyectogrupo67.entidades.Materia;
+import java.util.ArrayList;
+import static java.util.Collections.list;
+import java.util.List;
 
 /**
  *
@@ -84,7 +88,7 @@ public class MateriaData {
     }
 
     public Materia buscarMateria(int idMateria) {
-        
+
         Materia materia = new Materia();
 
         try {
@@ -94,12 +98,9 @@ public class MateriaData {
             ps.setInt(1, idMateria);
 
             ResultSet rs = ps.executeQuery();
-            
-            
 
             if (rs.next()) {
 
-                
                 materia.setIdMateria(idMateria);
                 materia.setNombre(rs.getString("nombre"));
                 materia.setAñoMateria(rs.getInt("año"));
@@ -117,6 +118,36 @@ public class MateriaData {
         }
 
         return materia;
+
+    }
+
+    public List<Materia> listarMaterias() {
+        
+        String sql="SELECT idMateria, nombre, año FROM materia WHERE activo = 1";
+        ArrayList <Materia> materias=new ArrayList<>();
+        
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
+            
+            while (rs.next()) {
+            
+            Materia materia=new Materia();
+            materia.setIdMateria(rs.getInt("idMateria"));
+            
+            
+        
+        }
+            
+            
+            
+        
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
 
     }
 

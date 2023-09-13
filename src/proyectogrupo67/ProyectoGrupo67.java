@@ -36,8 +36,6 @@ public class ProyectoGrupo67 {
      
         System.out.println(mat.buscarMateria(2));
         
-        
-        
     }
     
 }
