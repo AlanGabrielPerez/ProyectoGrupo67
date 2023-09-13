@@ -10,6 +10,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 import proyectogrupo67.entidades.Alumno;
@@ -133,6 +138,48 @@ public class AlumnoData {
             }
         return alumno;
         }
+    
+    public List <Alumno> listarAlumnos(){
+    String sql = "SELECT `idAlumno`, `dni`, `apellido`, `nombre`, `fechaN` FROM `alumno`WHERE estado = 1";   
+    ArrayList <Alumno> alumnos = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+            Alumno alum = new Alumno();
+                alum.setIdAlumno(rs.getInt("idAlumno"));
+                alum.setDni(rs.getInt("dni"));
+                alum.setApellido(rs.getString("apellido"));
+                alum.setNombre(rs.getString("nombre"));
+                alum.setFechaNacimiento(rs.getDate("fechaN").toLocalDate());
+                alum.setActivo(true);
+                alumnos.add(alum);
+                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de mensaje sql");
+        }
+        
+    return alumnos; 
+    }
+    
+    public void eliminarAlumno(int id){
+    
+    String sql = "UPDATE alumno SET estado= 0 WHERE idAlumno = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            int exito = ps.executeUpdate();
+            if (exito == 1){
+            JOptionPane.showMessageDialog(null, "Alumno dado de baja");
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de mensaje sql(borrado)");
+        }
+        
+    }
     
     
 }
