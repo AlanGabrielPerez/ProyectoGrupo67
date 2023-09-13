@@ -23,7 +23,7 @@ public class ProyectoGrupo67 {
         AlumnoData enviar = new AlumnoData();
         //enviar.guardarAlumno(alu);
         //enviar.modificarAlumno(alu);
-        Alumno alum = enviar.buscarAlumnoDni(111233);
+        Alumno alum = enviar.buscarAlumnoDni(13435245);
         System.out.println(alum.getApellido());
 
         
