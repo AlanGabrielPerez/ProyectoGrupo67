@@ -58,4 +58,66 @@ public class MateriaData {
 
     }
 
+    public void modificarMateria(Materia materia) {
+
+        try {
+            String sql = "UPDATE materia SET nombre=?,año=?,activo=? WHERE idMateria=?";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, materia.getNombre());
+            ps.setInt(2, materia.getAñoMateria());
+            ps.setBoolean(3, materia.getActivo());
+            ps.setInt(4, materia.getIdMateria());
+            int exito = ps.executeUpdate();
+
+            if (exito == 1) {
+
+                JOptionPane.showMessageDialog(null, "Materia modificada exitosamente!");
+
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de Update");
+
+        }
+
+    }
+
+    public Materia buscarMateria(int idMateria) {
+        
+        Materia materia = new Materia();
+
+        try {
+            String sql = "SELECT nombre, año FROM materia WHERE idMateria = ? AND activo = 1";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idMateria);
+
+            ResultSet rs = ps.executeQuery();
+            
+            
+
+            if (rs.next()) {
+
+                
+                materia.setIdMateria(idMateria);
+                materia.setNombre(rs.getString("nombre"));
+                materia.setAñoMateria(rs.getInt("año"));
+                materia.setActivo(Boolean.TRUE);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Materia no encontrada");
+
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de Update");
+
+        }
+
+        return materia;
+
+    }
+
 }
