@@ -122,32 +122,27 @@ public class MateriaData {
     }
 
     public List<Materia> listarMaterias() {
-        
-        String sql="SELECT idMateria, nombre, año FROM materia WHERE activo = 1";
-        ArrayList <Materia> materias=new ArrayList<>();
-        
+
+        String sql = "SELECT idMateria, nombre, año FROM materia WHERE activo = 1";
+        ArrayList<Materia> materias = new ArrayList<>();
+
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
-            ResultSet rs=ps.executeQuery();
-            
+            ResultSet rs = ps.executeQuery();
+
             while (rs.next()) {
-            
-            Materia materia=new Materia();
-            materia.setIdMateria(rs.getInt("idMateria"));
-            
-            
-        
-        }
-            
-            
-            
-        
+
+                Materia materia = new Materia();
+                materia.setIdMateria(rs.getInt("idMateria"));
+
+            }
+
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        return null;
 
     }
 
