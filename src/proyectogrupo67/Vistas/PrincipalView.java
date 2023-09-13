@@ -8,6 +8,7 @@ package proyectogrupo67.Vistas;
 import javax.swing.ImageIcon;
 import java.awt.Graphics;
 import java.awt.Image;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,7 +34,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
         ImageIcon icon = new ImageIcon(getClass().getResource("/VistasIcons/FondoG67.png"));
         Image image = icon.getImage();
-        jDesktopPane1 = new javax.swing.JDesktopPane(){
+        Desktop = new javax.swing.JDesktopPane(){
 
             public void paintComponent(Graphics g){
                 g.drawImage(image,0,0,getWidth(),getHeight(),this);
@@ -42,66 +43,91 @@ public class PrincipalView extends javax.swing.JFrame {
         ;
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmFormularioAlumno = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jmFormularioMateria = new javax.swing.JMenuItem();
+        jmAdminNotas = new javax.swing.JMenu();
+        jmAdminInscripciones = new javax.swing.JMenuItem();
+        jmCargaNotas = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        jmListadoMaterias = new javax.swing.JMenuItem();
         MenuSALIR = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
+        Desktop.setLayout(DesktopLayout);
+        DesktopLayout.setHorizontalGroup(
+            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 600, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        DesktopLayout.setVerticalGroup(
+            DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 577, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Alumno");
 
-        jMenuItem1.setText("Formulario de Alumno");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmFormularioAlumno.setText("Formulario de Alumno");
+        jmFormularioAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmFormularioAlumnoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jmFormularioAlumno);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Materia");
 
-        jMenuItem2.setText("Formulario de Materia");
-        jMenu2.add(jMenuItem2);
+        jmFormularioMateria.setText("Formulario de Materia");
+        jmFormularioMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmFormularioMateriaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmFormularioMateria);
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Administración");
+        jmAdminNotas.setText("Administración");
 
-        jMenuItem3.setText("Manejo de inscipciones");
-        jMenu3.add(jMenuItem3);
+        jmAdminInscripciones.setText("Manejo de inscipciones");
+        jmAdminInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmAdminInscripcionesActionPerformed(evt);
+            }
+        });
+        jmAdminNotas.add(jmAdminInscripciones);
 
-        jMenuItem4.setText("Manipulacion de notas");
-        jMenu3.add(jMenuItem4);
+        jmCargaNotas.setText("Manipulacion de notas");
+        jmCargaNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmCargaNotasActionPerformed(evt);
+            }
+        });
+        jmAdminNotas.add(jmCargaNotas);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jmAdminNotas);
 
         jMenu6.setText("Consultas");
 
-        jMenuItem5.setText("Alumnos por Materia");
-        jMenu6.add(jMenuItem5);
+        jmListadoMaterias.setText("Alumnos por Materia");
+        jmListadoMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmListadoMateriasActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jmListadoMaterias);
 
         jMenuBar1.add(jMenu6);
 
         MenuSALIR.setText("Salir");
+        MenuSALIR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuSALIRMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(MenuSALIR);
 
         setJMenuBar(jMenuBar1);
@@ -110,19 +136,70 @@ public class PrincipalView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(Desktop)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1)
+            .addComponent(Desktop)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void jmFormularioAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFormularioAlumnoActionPerformed
+        
+        Desktop.removeAll();
+        Desktop.repaint();
+        gestionAlumno venGestAlu = new gestionAlumno();
+        venGestAlu.setVisible(true);
+        Desktop.add(venGestAlu);
+        Desktop.moveToFront(venGestAlu);
+    }//GEN-LAST:event_jmFormularioAlumnoActionPerformed
+
+    private void jmFormularioMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmFormularioMateriaActionPerformed
+        Desktop.removeAll();
+        Desktop.repaint();
+        gestionMaterias venGestMat = new gestionMaterias();
+        venGestMat.setVisible(true);
+        Desktop.add(venGestMat);
+        Desktop.moveToFront(venGestMat);
+    }//GEN-LAST:event_jmFormularioMateriaActionPerformed
+
+    private void jmAdminInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAdminInscripcionesActionPerformed
+        Desktop.removeAll();
+        Desktop.repaint();
+        inscripciones venInsc = new inscripciones();
+        venInsc.setVisible(true);
+        Desktop.add(venInsc);
+        Desktop.moveToFront(venInsc);
+    }//GEN-LAST:event_jmAdminInscripcionesActionPerformed
+
+    private void jmCargaNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCargaNotasActionPerformed
+        Desktop.removeAll();
+        Desktop.repaint();
+        cargaNotas venCarNotas = new cargaNotas();
+        venCarNotas.setVisible(true);
+        Desktop.add(venCarNotas);
+        Desktop.moveToFront(venCarNotas);
+    }//GEN-LAST:event_jmCargaNotasActionPerformed
+
+    private void jmListadoMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmListadoMateriasActionPerformed
+        Desktop.removeAll();
+        Desktop.repaint();
+        alumnosMaterias venListAlu = new alumnosMaterias();
+        venListAlu.setVisible(true);
+        Desktop.add(venListAlu);
+        Desktop.moveToFront(venListAlu);
+    }//GEN-LAST:event_jmListadoMateriasActionPerformed
+
+    private void MenuSALIRMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuSALIRMouseClicked
+        ImageIcon icono = new ImageIcon("src/VistasIcons/salida32.png");
+        int op = JOptionPane.showConfirmDialog(this, "Seguro desea salir",
+                            "Salir", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, icono);
+                    if (op == 0) {       
+                        dispose();
+                    }
+    }//GEN-LAST:event_MenuSALIRMouseClicked
 
     /**
      * @param args the command line arguments
@@ -160,17 +237,17 @@ public class PrincipalView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane Desktop;
     private javax.swing.JMenu MenuSALIR;
-    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jmAdminInscripciones;
+    private javax.swing.JMenu jmAdminNotas;
+    private javax.swing.JMenuItem jmCargaNotas;
+    private javax.swing.JMenuItem jmFormularioAlumno;
+    private javax.swing.JMenuItem jmFormularioMateria;
+    private javax.swing.JMenuItem jmListadoMaterias;
     // End of variables declaration//GEN-END:variables
 }

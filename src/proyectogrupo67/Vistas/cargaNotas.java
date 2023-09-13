@@ -36,6 +36,9 @@ public class cargaNotas extends javax.swing.JInternalFrame {
         jbGuardar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
 
+        setClosable(true);
+        setTitle("Carga de notas");
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Carga de notas");
 

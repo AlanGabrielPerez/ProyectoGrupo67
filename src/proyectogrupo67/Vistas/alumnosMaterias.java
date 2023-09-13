@@ -34,6 +34,9 @@ public class alumnosMaterias extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jbSalir = new javax.swing.JButton();
 
+        setClosable(true);
+        setTitle("Listado de Alumnos por Materia");
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Listado de Alumnos por Materia");
 

@@ -45,6 +45,9 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
         jbGuardar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
 
+        setClosable(true);
+        setTitle("Formulario Alumnos");
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Alumno");
 

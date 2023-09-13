@@ -40,6 +40,10 @@ public class inscripciones extends javax.swing.JInternalFrame {
         jButton2 = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
 
+        setClosable(true);
+        setTitle("Formulario de Inscripcion");
+        setToolTipText("");
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Formulario de Inscripcion");
 

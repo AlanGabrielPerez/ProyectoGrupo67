@@ -43,6 +43,9 @@ public class gestionMaterias extends javax.swing.JInternalFrame {
         jbGuardar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
 
+        setClosable(true);
+        setTitle("Formulario Materias");
+
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setText("Materia");
 
