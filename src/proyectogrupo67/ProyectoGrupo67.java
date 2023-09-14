@@ -28,13 +28,16 @@ public class ProyectoGrupo67 {
         //Alumno alum = enviar.buscarAlumnoDni(23435345);
         //System.out.println(alum.getApellido());
 
-        Materia Historia=new Materia(5, "Historia4",1,true);
+        //Materia Historia=new Materia(1, "Filosofia",1,true);
         MateriaData mat=new MateriaData();
+        
+        mat.eliminarMateria(1);
+        
         //mat.guardarMateria(Historia);
         
         //mat.modificarMateria(Historia);
      
-        System.out.println(mat.buscarMateria(2));
+        //System.out.println(mat.buscarMateria(2));
         
     }
     
