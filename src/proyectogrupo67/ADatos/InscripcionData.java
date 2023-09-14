@@ -25,30 +25,36 @@ public class InscripcionData {
    private AlumnoData aluData;
 
     public InscripcionData() {
+        con = Conexion.getConnection();
     }
    
-   public void guardarMateria (Inscripcion ins){
+   public void guardarInscripcion(Inscripcion ins){
    String sql = "INSERT INTO inscripcion(nota, idAlumno, idMateria) VALUES (?,?,?)";
    
        try {
-       try (PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
-           AlumnoData ad = new AlumnoData();
-           MateriaData md = new MateriaData();
-           ps.setInt(1, ins.getNota());
-           ps.setInt(2, ins.getAlumno().getIdAlumno());
-           ps.setInt(3, ins.getMateria().getIdMateria());
+          PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+           ps.setDouble(1, ins.getNota());
+           for (Alumno alu: aluData.listarAlumnos()){
+           if(alu.getNombre().equals(ins.getAlumno().getNombre())){
+           ps.setInt(2, alu.getIdAlumno());
+           }
+           }
+           for (Materia mat: matData.listarMaterias()){
+           if (mat.getNombre().equals(ins.getMateria().getNombre())){
+              ps.setInt(3, mat.getIdMateria());
+           }
+           }
            ps.executeUpdate();
-           
            ResultSet rs = ps.getGeneratedKeys();
            if (rs.next()){
                ins.setIdInscripcion(rs.getInt(1));
                JOptionPane.showMessageDialog(null, "Inscripcion guardada");
            }
-       }
+       
        } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error en el sql");
        }
    
-   
+
    }
 }

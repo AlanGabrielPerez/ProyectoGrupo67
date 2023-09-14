@@ -135,6 +135,10 @@ public class MateriaData {
 
                 Materia materia = new Materia();
                 materia.setIdMateria(rs.getInt("idMateria"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setAñoMateria(rs.getInt("año"));
+                materia.setActivo(Boolean.TRUE);
+                materias.add(materia);
 
             }
 
@@ -142,7 +146,7 @@ public class MateriaData {
         } catch (SQLException ex) {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return materias;
 
     }
 

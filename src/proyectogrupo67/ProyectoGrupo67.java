@@ -6,6 +6,7 @@
 package proyectogrupo67;
 
 import java.time.LocalDate;
+import java.time.Month;
 import proyectogrupo67.ADatos.AlumnoData;
 import proyectogrupo67.ADatos.InscripcionData;
 import proyectogrupo67.ADatos.MateriaData;
@@ -24,15 +25,16 @@ public class ProyectoGrupo67 {
      */
     public static void main(String[] args) {
         Alumno alu = new Alumno ("NetBeans", "F", LocalDate.of(1898, 03, 20), true, 23435345);
-        //AlumnoData enviar = new AlumnoData();
+        AlumnoData enviar = new AlumnoData();
         //enviar.guardarAlumno(alu);
         //enviar.modificarAlumno(alu);
         //Alumno alum = enviar.buscarAlumnoDni(23435345);
         //System.out.println(alum.getApellido());
-
+      
         Materia Historia=new Materia(5, "Historia4",1,true);
         MateriaData mat=new MateriaData();
         //mat.guardarMateria(Historia);
+        Alumno alu2 = new Alumno ("jose", "xd", LocalDate.of(1945, 01, 01), true, 96969696);
         
         //mat.modificarMateria(Historia);
      
@@ -40,7 +42,7 @@ public class ProyectoGrupo67 {
         Inscripcion inns = new Inscripcion (alu,Historia,3.0);
        
         InscripcionData insD = new InscripcionData();
-        insD.guardarMateria(inns);
+        insD.guardarInscripcion(inns);
     }
     
 }
