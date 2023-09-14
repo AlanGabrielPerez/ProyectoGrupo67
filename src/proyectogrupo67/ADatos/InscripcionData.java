@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
-import proyectogrupo67.entidades.Inscripcion;
+import proyectogrupo67.entidades.*;
 
 /**
  *
@@ -31,20 +31,20 @@ public class InscripcionData {
    String sql = "INSERT INTO inscripcion(nota, idAlumno, idMateria) VALUES (?,?,?)";
    
        try {
-           PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+       try (PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS)) {
            AlumnoData ad = new AlumnoData();
            MateriaData md = new MateriaData();
-           ps.setDouble(1, ins.getNota());
-           ps.setInt(2, ad.buscarAlumnoDni(ins.getAlumno().getDni()).getIdAlumno());
-           ps.setInt(3, md.buscarMateria(ins.getMateria().getIdMateria()).getIdMateria());
+           ps.setInt(1, ins.getNota());
+           ps.setInt(2, ins.getAlumno().getIdAlumno());
+           ps.setInt(3, ins.getMateria().getIdMateria());
            ps.executeUpdate();
            
            ResultSet rs = ps.getGeneratedKeys();
            if (rs.next()){
-            ins.setIdInscripcion(rs.getInt(1));
-            JOptionPane.showMessageDialog(null, "Inscripcion guardada");
+               ins.setIdInscripcion(rs.getInt(1));
+               JOptionPane.showMessageDialog(null, "Inscripcion guardada");
            }
-           ps.close();
+       }
        } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error en el sql");
        }
