@@ -83,7 +83,7 @@ public class InscripcionData {
      return cursadas;
    }
    
-    public ArrayList<Inscripcion> obtenerInscripcionesPorAlumno(int id) {
+    public List<Inscripcion> obtenerInscripcionesPorAlumno(int id) {
         ArrayList<Inscripcion> listaInscrip = new ArrayList<>();
 
         String sql = "SELECT idInscripcion, nota ,idMateria FROM inscripcion WHERE idAlumno = ?";
@@ -109,6 +109,28 @@ public class InscripcionData {
         return listaInscrip;
 
     }
-
-   
+    
+    public void borrarInscripcion (int idAlumno, int idMateria){
+            
+        String sql = "DELETE FROM inscripcion WHERE idAlumno=? AND idMateria=?";
+        PreparedStatement ps;
+       try {
+           ps = con.prepareStatement(sql);
+           ps.setInt(1, idAlumno);
+           ps.setInt(2,idMateria);  
+           int exito = ps.executeUpdate();
+            
+            if (exito == 1 ){
+                
+              JOptionPane.showMessageDialog(null, "Alumno dado de baja ("+matData.buscarMateria(idMateria).getNombre()+").");
+               }
+           
+           ps.close();
+           
+       } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error sql");
+       }    
+    
+    }
+    
 }
