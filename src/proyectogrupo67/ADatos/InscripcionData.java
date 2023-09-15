@@ -86,7 +86,7 @@ public class InscripcionData {
     public List<Inscripcion> obtenerInscripcionesPorAlumno(int id) {
         ArrayList<Inscripcion> listaInscrip = new ArrayList<>();
 
-        String sql = "SELECT idInscripcion, nota ,idMateria FROM inscripcion WHERE idAlumno = ?";
+        String sql = "SELECT * FROM inscripcion WHERE idAlumno = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -100,6 +100,8 @@ public class InscripcionData {
                 ins.setNota(rs.getInt("nota"));
 
                 listaInscrip.add(ins);
+                
+                 ps.close();
             }
 
         } catch (SQLException ex) {
