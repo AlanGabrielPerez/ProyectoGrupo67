@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -47,11 +49,38 @@ public class InscripcionData {
                ins.setIdInscripcion(rs.getInt(1));
                JOptionPane.showMessageDialog(null, "Inscripcion guardada");
            }
-       
        } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error en el sql");
        }
    
 
    }
+   
+   public List <Inscripcion> obtenerMateriasCursadas(int id){
+   String sql = "SELECT * FROM `inscripcion` WHERE idAlumno = ?";
+   ArrayList <Inscripcion> cursadas = new ArrayList();
+   
+       try {
+           PreparedStatement ps = con.prepareStatement(sql);
+           ps.setInt(1, id);
+           ResultSet rs = ps.executeQuery();
+           while (rs.next()){
+          Inscripcion ins = new Inscripcion();
+          ins.setIdInscripcion(rs.getInt("idInscripcion"));
+          ins.setNota(rs.getInt("nota"));
+          Materia materia = new Materia ();
+          materia.setIdMateria(rs.getInt("idMateria"));
+          Alumno alumno = new Alumno ();
+          alumno.setIdAlumno(rs.getInt("idAlumno"));
+          ins.setMateria(materia);
+          ins.setAlumno(alumno);
+          cursadas.add(ins);
+           }
+           
+       } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "error en el sql");
+       }
+     return cursadas;
+   }
+   
 }
