@@ -26,6 +26,9 @@ public class InscripcionData {
 
     public InscripcionData() {
         con = Conexion.getConnection();
+         aluData = new AlumnoData(); 
+         matData = new MateriaData(); 
+        
     }
     
     
