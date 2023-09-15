@@ -24,7 +24,7 @@ public class ProyectoGrupo67 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Alumno alu = new Alumno ("NetBeans", "F", LocalDate.of(1898, 03, 20), true, 23435345);
+        Alumno alu = new Alumno (8,"NetBeans", "F", LocalDate.of(1898, 03, 20), true, 23435345);
         AlumnoData enviar = new AlumnoData();
         //enviar.guardarAlumno(alu);
         //enviar.modificarAlumno(alu);
@@ -33,13 +33,14 @@ public class ProyectoGrupo67 {
       
         Materia Historia=new Materia(5, "Historia4",1,true);
         MateriaData mat=new MateriaData();
+        
         //mat.guardarMateria(Historia);
         Alumno alu2 = new Alumno ("jose", "xd", LocalDate.of(1945, 01, 01), true, 96969696);
         
         //mat.modificarMateria(Historia);
      
        // System.out.println(mat.buscarMateria(2));
-        Inscripcion inns = new Inscripcion (alu,Historia,3.0);
+        Inscripcion inns = new Inscripcion (alu,Historia,3);
        
         InscripcionData insD = new InscripcionData();
         insD.guardarInscripcion(inns);

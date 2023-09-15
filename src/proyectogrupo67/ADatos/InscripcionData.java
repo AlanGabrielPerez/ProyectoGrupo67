@@ -21,29 +21,23 @@ import proyectogrupo67.entidades.*;
  */
 public class InscripcionData {
    private Connection con;
-   private MateriaData matData;
-   private AlumnoData aluData;
+   private MateriaData matData = new MateriaData();
+   private AlumnoData aluData = new AlumnoData();
 
     public InscripcionData() {
         con = Conexion.getConnection();
     }
+    
+    
    
    public void guardarInscripcion(Inscripcion ins){
-   String sql = "INSERT INTO inscripcion(nota, idAlumno, idMateria) VALUES (?,?,?)";
+   String sql = "INSERT INTO `inscripcion`(`nota`, `idAlumno`, `idMateria`) VALUES (?,?,?)";
    
        try {
           PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
            ps.setDouble(1, ins.getNota());
-           for (Alumno alu: aluData.listarAlumnos()){
-           if(alu.getNombre().equals(ins.getAlumno().getNombre())){
-           ps.setInt(2, alu.getIdAlumno());
-           }
-           }
-           for (Materia mat: matData.listarMaterias()){
-           if (mat.getNombre().equals(ins.getMateria().getNombre())){
-              ps.setInt(3, mat.getIdMateria());
-           }
-           }
+           ps.setInt(2,ins.getAlumno().getIdAlumno());
+           ps.setInt(3, ins.getMateria().getIdMateria());
            ps.executeUpdate();
            ResultSet rs = ps.getGeneratedKeys();
            if (rs.next()){
