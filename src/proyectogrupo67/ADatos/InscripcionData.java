@@ -109,7 +109,7 @@ public class InscripcionData {
      public ArrayList<Inscripcion> obtenerInscripcionesPorAlumno (int id) {
        ArrayList <Inscripcion> listaInscrip = new ArrayList<>();
        
-       String sql = "SELECT idInscripciolistaInscripn, nota ,idMateria FROM inscripcion WHERE idAlumno = ?";
+       String sql = "SELECT * FROM inscripcion WHERE idAlumno = ?";
        
        try {
            PreparedStatement ps = con.prepareStatement(sql);
@@ -122,9 +122,10 @@ public class InscripcionData {
            ins.setMateria(matData.buscarMateria(rs.getInt("idMateria")));
            ins.setNota(rs.getInt("nota"));
            
-           listaInscrip.add(ins);           
-           }
+           listaInscrip.add(ins);    
            
+           }
+           ps.close();
        } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error sql");
        }
@@ -146,6 +147,7 @@ public class InscripcionData {
                 alu = aluData.buscarAlumnoDni(rs.getInt("idAlumno"));
                 aluXmat.add(alu);            
             }
+            ps.close();
        } catch (SQLException ex) {
            JOptionPane.showMessageDialog(null, "Error sql");
        }
