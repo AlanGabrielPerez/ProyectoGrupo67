@@ -116,4 +116,83 @@ public class InscripcionData {
         return inscripciones;
     }
 
+   
+   
+
+   
+
+   
+     public ArrayList<Inscripcion> obtenerInscripcionesPorAlumno (int id) {
+       ArrayList <Inscripcion> listaInscrip = new ArrayList<>();
+       
+       String sql = "SELECT * FROM inscripcion WHERE idAlumno = ?";
+       
+       try {
+           PreparedStatement ps = con.prepareStatement(sql);
+           ps.setInt(1, id);
+           ResultSet rs = ps.executeQuery();
+           while (rs.next()){
+           Inscripcion ins= new Inscripcion ();
+           ins.setIdInscripcion(rs.getInt("idInscripcion"));
+           ins.setAlumno(aluData.buscarAlumnoId(id));
+           ins.setMateria(matData.buscarMateria(rs.getInt("idMateria")));
+           ins.setNota(rs.getInt("nota"));
+           
+           listaInscrip.add(ins);    
+           
+           }
+           ps.close();
+       } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "Error sql");
+       }
+       
+       return listaInscrip;
+
+     }  
+
+    public List<Alumno> alumnosXMateria (int idMateria) {
+        ArrayList <Alumno> aluXmat= new ArrayList<>();
+        String sql = "SELECT idAlumno FROM inscripcion WHERE idMateria = ?";
+       
+       try {
+           PreparedStatement ps = con.prepareStatement(sql);
+           ps.setInt(1, idMateria);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Alumno alu = new Alumno ();
+                alu = aluData.buscarAlumnoDni(rs.getInt("idAlumno"));
+                aluXmat.add(alu);            
+            }
+            ps.close();
+       } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "Error sql");
+       }
+            
+        
+        return aluXmat;
+    }
+
+    public void borrarInscripcion (int idAlumno, int idMateria){
+            
+        String sql = "DELETE FROM inscripcion WHERE idAlumno=? AND idMateria=?";
+        PreparedStatement ps;
+       try {
+           ps = con.prepareStatement(sql);
+           ps.setInt(1, idAlumno);
+           ps.setInt(2,idMateria);  
+           int exito = ps.executeUpdate();
+            
+            if (exito == 1 ){
+                
+              JOptionPane.showMessageDialog(null, "Alumno dado de baja ("+matData.buscarMateria(idMateria).getNombre()+").");
+               }
+           
+           ps.close();
+           
+       } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error sql");
+       }    
+    
+    }
+   
 }
