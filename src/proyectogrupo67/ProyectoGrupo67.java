@@ -43,7 +43,14 @@ public class ProyectoGrupo67 {
         Inscripcion inns = new Inscripcion (alu,Historia,3);
        
         InscripcionData insD = new InscripcionData();
-        insD.guardarInscripcion(inns);
+        //insD.guardarInscripcion(inns);
+        
+        
+        for(Inscripcion i:insD.obtenerInscripciones()){
+        
+            System.out.println(i);
+       
+        }
     }
     
 }
