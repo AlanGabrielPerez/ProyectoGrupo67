@@ -56,25 +56,21 @@ public class InscripcionData {
 
    }
    
-   public List <Inscripcion> obtenerMateriasCursadas(int id){
-   String sql = "SELECT * FROM `inscripcion` WHERE idAlumno = ?";
-   ArrayList <Inscripcion> cursadas = new ArrayList();
+   public List <Materia> obtenerMateriasCursadas(int id){
+   String sql = "SELECT i.iDmateria, nombre, año, activo FROM inscripcion i, materia m WHERE i.idMateria = m.idMateria AND i.idAlumno = ?";
+   ArrayList <Materia> cursadas = new ArrayList();
    
        try {
            PreparedStatement ps = con.prepareStatement(sql);
            ps.setInt(1, id);
            ResultSet rs = ps.executeQuery();
            while (rs.next()){
-          Inscripcion ins = new Inscripcion();
-          ins.setIdInscripcion(rs.getInt("idInscripcion"));
-          ins.setNota(rs.getInt("nota"));
           Materia materia = new Materia ();
           materia.setIdMateria(rs.getInt("idMateria"));
-          Alumno alumno = new Alumno ();
-          alumno.setIdAlumno(rs.getInt("idAlumno"));
-          ins.setMateria(materia);
-          ins.setAlumno(alumno);
-          cursadas.add(ins);
+          materia.setAñoMateria(rs.getInt("año"));
+          materia.setNombre(rs.getString("nombre"));
+          materia.setActivo(rs.getBoolean("activo"));
+          cursadas.add(materia);
            }
            
        } catch (SQLException ex) {

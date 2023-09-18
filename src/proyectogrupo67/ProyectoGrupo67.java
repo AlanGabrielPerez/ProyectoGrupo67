@@ -42,11 +42,12 @@ public class ProyectoGrupo67 {
        // System.out.println(mat.buscarMateria(2));
         Inscripcion inns = new Inscripcion (alu,Historia,3);
        
-        InscripcionData insD = new InscripcionData();
         //insD.guardarInscripcion(inns);
         
         
-        for(Inscripcion i:insD.obtenerInscripciones()){
+        InscripcionData insD = new InscripcionData();
+        
+        for(Materia i:insD.obtenerMateriasCursadas(1)){
         
             System.out.println(i);
        
