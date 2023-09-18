@@ -24,34 +24,33 @@ public class ProyectoGrupo67 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Alumno alu = new Alumno (8,"NetBeans", "F", LocalDate.of(1898, 03, 20), true, 23435345);
-        AlumnoData enviar = new AlumnoData();
+       // Alumno alu = new Alumno (8,"NetBeans", "F", LocalDate.of(1898, 03, 20), true, 23435345);
+        ///AlumnoData enviar = new AlumnoData();
         //enviar.guardarAlumno(alu);
         //enviar.modificarAlumno(alu);
         //Alumno alum = enviar.buscarAlumnoDni(23435345);
         //System.out.println(alum.getApellido());
       
-        Materia Historia=new Materia(5, "Historia4",1,true);
-        MateriaData mat=new MateriaData();
+        //Materia Historia=new Materia(5, "Historia4",1,true);
+        //MateriaData mat=new MateriaData();
         
         //mat.guardarMateria(Historia);
-        Alumno alu2 = new Alumno ("jose", "xd", LocalDate.of(1945, 01, 01), true, 96969696);
+        //Alumno alu2 = new Alumno ("jose", "xd", LocalDate.of(1945, 01, 01), true, 96969696);
         
         //mat.modificarMateria(Historia);
      
        // System.out.println(mat.buscarMateria(2));
-        Inscripcion inns = new Inscripcion (alu,Historia,3);
-       
-        //insD.guardarInscripcion(inns);
+       // Inscripcion inns = new Inscripcion (alu,Historia,3);
+       //insD.guardarInscripcion(inns);
         
         
         InscripcionData insD = new InscripcionData();
         
-        for(Materia i:insD.obtenerMateriasCursadas(1)){
+      //for(Materia i:insD.MateriasNoCursadas(1)){
+      //   System.out.println(i);
+      //}
         
-            System.out.println(i);
-       
-        }
+       // insD.actualizarNota(1, 1, 6);
     }
     
 }

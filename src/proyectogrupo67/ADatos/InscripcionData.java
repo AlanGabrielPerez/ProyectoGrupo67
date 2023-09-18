@@ -175,5 +175,48 @@ public class InscripcionData {
        }    
     
     }
+    
+     public List <Materia> materiasNoCursadas(int id){
+        String sql = "SELECT idMateria FROM Materia WHERE idMateria NOT IN (SELECT idMateria FROM inscripcion WHERE idAlumno = ?)";
+         ArrayList <Materia> Nocursadas = new ArrayList();
+   
+       try {
+           PreparedStatement ps = con.prepareStatement(sql);
+           ps.setInt(1, id);
+           ResultSet rs = ps.executeQuery();
+           while (rs.next()){
+          Materia mat = matData.buscarMateria(rs.getInt("idMateria"));
+          Nocursadas.add(mat);
+           }
+           ps.close();
+       } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "error en el sql");
+       }
+     return Nocursadas;
+   }
+ 
+     public void actualizarNota (int idAlumno, int idMateria, int nota){
+            
+        String sql = "UPDATE inscripcion SET nota=? WHERE idAlumno=? and idMateria=?";
+        PreparedStatement ps;
+       try {
+           ps = con.prepareStatement(sql);
+           ps.setInt(1, nota);
+           ps.setInt(2, idAlumno);
+           ps.setInt(3,idMateria);  
+           int exito = ps.executeUpdate();
+            
+            if (exito == 1 ){
+                
+              JOptionPane.showMessageDialog(null, "Nota actulizada.");
+               }
+           
+           ps.close();
+           
+       } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error sql");
+       }    
+    
+    }
    
 }
