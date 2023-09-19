@@ -5,17 +5,27 @@
  */
 package proyectogrupo67.Vistas;
 
+import java.time.LocalDate;
+import java.sql.Date;
+import java.time.ZoneId;
+import java.util.TimeZone;
+import javax.swing.JOptionPane;
+import proyectogrupo67.ADatos.AlumnoData;
+import proyectogrupo67.entidades.Alumno;
+
 /**
  *
  * @author Asus
  */
 public class gestionAlumno extends javax.swing.JInternalFrame {
+    AlumnoData alu = new AlumnoData();
 
     /**
      * Creates new form gestionAlumno
      */
     public gestionAlumno() {
         initComponents();
+        
     }
 
     /**
@@ -92,14 +102,39 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
         });
 
         jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         jbNuevo.setText("Nuevo");
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbGuardar.setText("Guardar");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,6 +237,53 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
     private void jcEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcEstadoActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+
+       String jt = jtDNI.getText();
+        Integer in = Integer.parseInt(jt);
+        jtNombre.setText(alu.buscarAlumnoDni(in).getNombre());
+        jtApellido.setText(alu.buscarAlumnoDni(in).getApellido());
+        jcEstado.setSelected(alu.buscarAlumnoDni(in).isActivo());
+        LocalDate ld = alu.buscarAlumnoDni(in).getFechaNacimiento();
+        jDateChooser1.setDate(Date.valueOf(ld));
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+       jtNombre.setText("");
+       jtApellido.setText("");
+       jcEstado.setSelected(false);
+       jDateChooser1.setDate(null);
+       jtDNI.setText("");
+    }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+       if (jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty() || jDateChooser1.getDate() == null || jtDNI.getText().isEmpty() ){
+           JOptionPane.showMessageDialog(this, "Rellene correctamente los campos");
+       } else {
+           Alumno alumno = new Alumno();
+           alumno.setNombre(jtNombre.getText());
+           alumno.setApellido(jtApellido.getText());
+           alumno.setDni(Integer.parseInt(jtDNI.getText()));      
+           alumno.setActivo(true);
+           LocalDate ld = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+           alumno.setFechaNacimiento(ld);
+           alu.guardarAlumno(alumno);
+       }
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+       if (jtDNI.getText().isEmpty()){
+           JOptionPane.showMessageDialog(this, "Rellene correctamente el campo del dni");
+       } else {
+           Integer dni = Integer.parseInt(jtDNI.getText());
+           alu.eliminarAlumno(alu.buscarAlumnoDni(dni).getIdAlumno());
+       }
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
