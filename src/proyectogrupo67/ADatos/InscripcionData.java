@@ -141,7 +141,7 @@ public class InscripcionData {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Alumno alu = new Alumno ();
-                alu = aluData.buscarAlumnoDni(rs.getInt("idAlumno"));
+                alu = aluData.buscarAlumnoId(rs.getInt("idAlumno"));
                 aluXmat.add(alu);            
             }
             ps.close();
@@ -185,8 +185,8 @@ public class InscripcionData {
            ps.setInt(1, id);
            ResultSet rs = ps.executeQuery();
            while (rs.next()){
-          Materia mat = matData.buscarMateria(rs.getInt("idMateria"));
-          Nocursadas.add(mat);
+           Materia mat = matData.buscarMateria(rs.getInt("idMateria"));
+           Nocursadas.add(mat);
            }
            ps.close();
        } catch (SQLException ex) {
