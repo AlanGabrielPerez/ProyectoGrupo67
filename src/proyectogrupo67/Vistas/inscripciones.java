@@ -282,6 +282,7 @@ public class inscripciones extends javax.swing.JInternalFrame {
     
     }
     private void armarCabecera() {
+        modelo.setColumnCount(0);
         modelo.addColumn("ID");
         modelo.addColumn("Nombre");
         modelo.addColumn("Año");
