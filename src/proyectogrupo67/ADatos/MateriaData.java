@@ -92,7 +92,7 @@ public class MateriaData {
         Materia materia = new Materia();
 
         try {
-            String sql = "SELECT nombre, año FROM materia WHERE idMateria = ? AND activo = 1";
+            String sql = "SELECT nombre, año, activo FROM materia WHERE idMateria = ? ";
 
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, idMateria);
@@ -104,7 +104,7 @@ public class MateriaData {
                 materia.setIdMateria(idMateria);
                 materia.setNombre(rs.getString("nombre"));
                 materia.setAñoMateria(rs.getInt("año"));
-                materia.setActivo(Boolean.TRUE);
+                materia.setActivo(rs.getBoolean("activo"));
 
             } else {
                 JOptionPane.showMessageDialog(null, "Materia no encontrada");

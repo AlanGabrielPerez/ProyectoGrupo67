@@ -17,10 +17,8 @@ import proyectogrupo67.entidades.Materia;
  * @author Asus
  */
 public class gestionMaterias extends javax.swing.JInternalFrame {
-    
-    private MateriaData matData=new MateriaData();
-    
-   
+
+    private MateriaData matData = new MateriaData();
 
     /**
      * Creates new form gestionMaterias
@@ -109,6 +107,11 @@ public class gestionMaterias extends javax.swing.JInternalFrame {
         jbGuardar.setText("Guardar");
 
         jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,18 +210,24 @@ public class gestionMaterias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int codigo = Integer.parseInt(jtCodigo.getText());
 
-        //matData.buscarMateria(codigo);
+        if (!matData.buscarMateria(codigo).getNombre().isEmpty()) {
+
+            jtNombre.setText(matData.buscarMateria(codigo).getNombre());
+            jtAño.setText(matData.buscarMateria(codigo).getAñoMateria() + "");
+            jrbEstado.setSelected(matData.buscarMateria(codigo).getActivo());
+            
+            
+
+        } 
         
-        jtNombre.setText(matData.buscarMateria(codigo).getNombre());
-        jtAño.setText(matData.buscarMateria(codigo).getAñoMateria()+"");
-        jrbEstado.setSelected(matData.buscarMateria(codigo).getActivo());
         
-        
+
+
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         // TODO add your handling code here:
-        
+
         jtNombre.setText("");
         jtAño.setText("");
         jtCodigo.setText("");
@@ -227,13 +236,25 @@ public class gestionMaterias extends javax.swing.JInternalFrame {
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
-        int codigo = Integer.parseInt(jtCodigo.getText());
-        
-        matData.eliminarMateria(codigo);
-        
-        
-   
+        if (jtCodigo.getText().isEmpty()){
+            
+            JOptionPane.showMessageDialog(null, "Ingrese el codigo de la materia.");
+        } else {
+            
+            Integer cod=Integer.parseInt(jtCodigo.getText());
+            matData.eliminarMateria(cod);
+            jbNuevoActionPerformed(evt);
+            
+        }
+
+
     }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        // TODO add your handling code here:
+        
+        dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
