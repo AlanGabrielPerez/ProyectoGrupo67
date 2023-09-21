@@ -105,6 +105,11 @@ public class gestionMaterias extends javax.swing.JInternalFrame {
         });
 
         jbGuardar.setText("Guardar");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -255,6 +260,27 @@ public class gestionMaterias extends javax.swing.JInternalFrame {
         
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        // TODO add your handling code here:
+        
+        
+
+        if (!jtNombre.getText().isEmpty()||!jtAño.getText().isEmpty()) {
+
+            Materia materia=new Materia();
+            
+            materia.setNombre(jtNombre.getText());
+            materia.setAñoMateria(Integer.parseInt(jtAño.getText()));
+            materia.setActivo(jrbEstado.isSelected());
+            matData.guardarMateria(materia);
+            
+
+        } else {
+            
+            JOptionPane.showMessageDialog(null, "Campos vacios");
+        }
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
