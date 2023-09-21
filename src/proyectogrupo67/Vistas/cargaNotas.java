@@ -5,17 +5,38 @@
  */
 package proyectogrupo67.Vistas;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import proyectogrupo67.ADatos.*;
+import proyectogrupo67.entidades.Alumno;
+import proyectogrupo67.entidades.Inscripcion;
+import proyectogrupo67.entidades.Materia;
+
 /**
  *
  * @author Asus
  */
 public class cargaNotas extends javax.swing.JInternalFrame {
+    MateriaData md = new MateriaData();
+    AlumnoData ad = new AlumnoData();
+    InscripcionData id = new InscripcionData();
+    private DefaultTableModel modelo = new DefaultTableModel(){
+    public boolean isCellEditable(int fila, int columna){
+        if(columna == 2){
+        return true;
+        } else {
+        return false;
+        } 
+    }
+    };
 
     /**
      * Creates new form cargaNotas
      */
     public cargaNotas() {
         initComponents();
+        cargarCombo();
+        armarCabecera();
     }
 
     /**
@@ -45,7 +66,11 @@ public class cargaNotas extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jLabel2.setText("Seleccione un alumno:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -130,12 +155,40 @@ public class cargaNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        // TODO add your handling code here:
+      jComboBox1ActionPerformed(evt);
+      Alumno alu = new Alumno();
+      Materia mat = new Materia();
+      
+      
+      int colum = (Integer) modelo.getValueAt(jTable1.getSelectedRow(),2);
+      modelo.setValueAt(colum, jTable1.getSelectedRow(), 2);
+      int not = (Integer) modelo.getValueAt(jTable1.getSelectedRow(),2);
+      Alumno idAlumno = (Alumno) modelo.getValueAt(jTable1.getSelectedRow(), 0);
+      alu.setIdAlumno(idAlumno.getIdAlumno());
+      Materia idMateria = (Materia) modelo.getValueAt(jTable1.getSelectedRow(), 1);
+      mat.setIdMateria(idMateria.getIdMateria());
+      Inscripcion i = new Inscripcion(alu, mat, not);
+      id.actualizarNota(i.getAlumno().getIdAlumno(), i.getMateria().getIdMateria(), i.getNota());
     }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+       modelo.setRowCount(0);
+       int nota;
+       Alumno alu = (Alumno)jComboBox1.getSelectedItem();
+       for (Materia m: id.obtenerMateriasCursadas(alu.getIdAlumno())){
+           for (Inscripcion i: id.obtenerInscripcionesPorAlumno(alu.getIdAlumno())){
+           if (m.getIdMateria()==i.getMateria().getIdMateria()){
+               nota = i.getNota();
+               modelo.addRow(new Object[]{m.getIdMateria(),m.getNombre(),nota});
+           break;
+           }
+           }
+       }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<Alumno> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -144,4 +197,18 @@ public class cargaNotas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbSalir;
     // End of variables declaration//GEN-END:variables
+public void cargarCombo(){
+    for (Alumno a:ad.listarAlumnos()){
+    jComboBox1.addItem(a);
+    }
+
+}
+public void armarCabecera(){
+modelo.setColumnCount(0);
+modelo.addColumn("Codigo");
+modelo.addColumn("Nombre");
+modelo.addColumn("Nota");
+jTable1.setModel(modelo);
+}
+
 }
