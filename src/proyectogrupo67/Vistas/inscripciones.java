@@ -29,8 +29,7 @@ public class inscripciones extends javax.swing.JInternalFrame {
         initComponents();
         cargarAlumnos();
         armarCabecera();
-        jrbMateriaIns.setSelected(true);
-        jbInscribir.setEnabled(false);
+        
        
     }
 
