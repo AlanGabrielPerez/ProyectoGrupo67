@@ -265,7 +265,7 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
            alumno.setNombre(jtNombre.getText());
            alumno.setApellido(jtApellido.getText());
            alumno.setDni(Integer.parseInt(jtDNI.getText()));      
-           alumno.setActivo(true);
+           alumno.setActivo(jcEstado.isSelected());
            LocalDate ld = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
            alumno.setFechaNacimiento(ld);
            alu.guardarAlumno(alumno);
