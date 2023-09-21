@@ -85,7 +85,7 @@ public class AlumnoData {
     }
     
     public Alumno buscarAlumnoId(int id){
-    String sql = "SELECT dni, apellido, nombre, fechaN FROM alumno WHERE idAlumno = ? AND estado = 1";
+    String sql = "SELECT dni, apellido, nombre, fechaN, estado FROM alumno WHERE idAlumno = ?";
     Alumno alumno = null;
     
         try {
@@ -99,7 +99,7 @@ public class AlumnoData {
             alumno.setApellido(rs.getString("apellido"));
             alumno.setNombre(rs.getString("nombre"));
             alumno.setFechaNacimiento(rs.getDate("fechaN").toLocalDate());
-            alumno.setActivo(true);
+            alumno.setActivo(rs.getBoolean("estado"));
              
             } else {
             JOptionPane.showMessageDialog(null, "Alumno no encontrado");
@@ -112,7 +112,7 @@ public class AlumnoData {
     }
     
     public Alumno buscarAlumnoDni(int dni){
-        String sql = "SELECT `idAlumno`, `dni`, `apellido`, `nombre`, `fechaN`, `estado` FROM `alumno` WHERE dni = ? and estado = 1";
+        String sql = "SELECT `idAlumno`, `dni`, `apellido`, `nombre`, `fechaN`, `estado` FROM `alumno` WHERE dni = ?";
         Alumno alumno = null;
         
             try {
@@ -126,7 +126,7 @@ public class AlumnoData {
                 alumno.setApellido(rs.getString("apellido"));
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setFechaNacimiento(rs.getDate("fechaN").toLocalDate());
-                alumno.setActivo(true);
+                alumno.setActivo(rs.getBoolean("estado"));
                  
                 } else {
                 JOptionPane.showMessageDialog(null, "Alumno no encontrado");

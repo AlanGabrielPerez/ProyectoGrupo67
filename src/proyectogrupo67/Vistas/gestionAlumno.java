@@ -269,6 +269,7 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
            LocalDate ld = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
            alumno.setFechaNacimiento(ld);
            alu.guardarAlumno(alumno);
+           jbNuevoActionPerformed(evt);
        }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
@@ -278,6 +279,7 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
        } else {
            Integer dni = Integer.parseInt(jtDNI.getText());
            alu.eliminarAlumno(alu.buscarAlumnoDni(dni).getIdAlumno());
+           jbNuevoActionPerformed(evt);
        }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
