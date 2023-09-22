@@ -162,7 +162,11 @@ public class cargaNotas extends javax.swing.JInternalFrame {
         if (jTable1.getSelectedRow() >= 0){
        if (modelo.getValueAt(columna, 2).getClass() == "".getClass()){
           int nota = Integer.parseInt((String)modelo.getValueAt(columna, 2));
+          if (nota >= 0 && nota <= 10){
           id.actualizarNota(alu, materia, nota);
+          } else {
+          JOptionPane.showMessageDialog(this, "La nota debe ser mayor-igual a 0 y menor-igual a 10");
+          }
        } else {
        JOptionPane.showMessageDialog(this, "La nota no fue modificada");
        }
