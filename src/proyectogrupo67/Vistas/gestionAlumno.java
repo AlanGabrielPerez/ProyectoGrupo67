@@ -81,6 +81,11 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
                 jtDNIActionPerformed(evt);
             }
         });
+        jtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtDNIKeyTyped(evt);
+            }
+        });
 
         jtApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,6 +291,15 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtDNIKeyTyped
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57;
+        if (!numero) {
+
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtDNIKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
