@@ -156,24 +156,30 @@ public class cargaNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-    int columna = jTable1.getSelectedRow();
-    int alu = ((Alumno)jComboBox1.getSelectedItem()).getIdAlumno();
-    int materia = (Integer) modelo.getValueAt(columna, 0);
-        if (jTable1.getSelectedRow() >= 0){
-       if (modelo.getValueAt(columna, 2).getClass() == "".getClass()){
-          int nota = Integer.parseInt((String)modelo.getValueAt(columna, 2));
-          if (nota >= 0 && nota <= 10){
-          id.actualizarNota(alu, materia, nota);
-          } else {
-          JOptionPane.showMessageDialog(this, "La nota debe ser mayor-igual a 0 y menor-igual a 10");
-          jComboBox1ActionPerformed(evt);
-          }
-       } else {
-       JOptionPane.showMessageDialog(this, "La nota no fue modificada");
-       }
-    } else {
-    JOptionPane.showMessageDialog(this, "No hay materia seleccionada");
-    }
+        
+        if (jTable1.getSelectedRow() >= 0) {
+        int columna = jTable1.getSelectedRow();
+        int alu = ((Alumno) jComboBox1.getSelectedItem()).getIdAlumno();
+        int materia = (Integer) modelo.getValueAt(columna, 0);
+            if (modelo.getValueAt(columna, 2).getClass() == "".getClass()) {
+                try {
+                    int nota = Integer.parseInt((String) modelo.getValueAt(columna, 2));
+                    if (nota >= 0 && nota <= 10) {
+                        id.actualizarNota(alu, materia, nota);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "La nota debe ser mayor-igual a 0 y menor-igual a 10");
+                        jComboBox1ActionPerformed(evt);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Solo se permiten ingresar numeros enteros.");
+                    jComboBox1ActionPerformed(evt);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "La nota no fue modificada.\n\n*presione 'enter' despues de ingresar la nota");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay materia seleccionada");
+        }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

@@ -170,21 +170,21 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtCodigo">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtCodigoKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jtNombre">
     </Component>
     <Component class="javax.swing.JTextField" name="jtA&#xf1;o">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtA&#xf1;oActionPerformed"/>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtA&#xf1;oKeyTyped"/>
       </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="jrbEstado">
       <Properties>
         <Property name="text" type="java.lang.String" value="   "/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrbEstadoActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbBuscar">
       <Properties>

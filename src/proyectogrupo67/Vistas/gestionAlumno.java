@@ -245,13 +245,30 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
 
-       String jt = jtDNI.getText();
-        Integer in = Integer.parseInt(jt);
-        jtNombre.setText(alu.buscarAlumnoDni(in).getNombre());
-        jtApellido.setText(alu.buscarAlumnoDni(in).getApellido());
-        jcEstado.setSelected(alu.buscarAlumnoDni(in).isActivo());
-        LocalDate ld = alu.buscarAlumnoDni(in).getFechaNacimiento();
-        jDateChooser1.setDate(Date.valueOf(ld));
+        if (jtDNI.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Ingrese el codigo de la materia.");
+        } else {
+            boolean ok = false;
+            String jt = jtDNI.getText();
+            Integer in = Integer.parseInt(jt);
+            for (Alumno a : alu.listarAlumnos()) {
+                if (in == a.getDni()) {
+                    ok = true;
+                    break;
+                }
+            }
+            if (ok) {
+
+                jtNombre.setText(alu.buscarAlumnoDni(in).getNombre());
+                jtApellido.setText(alu.buscarAlumnoDni(in).getApellido());
+                jcEstado.setSelected(alu.buscarAlumnoDni(in).isActivo());
+                LocalDate ld = alu.buscarAlumnoDni(in).getFechaNacimiento();
+                jDateChooser1.setDate(Date.valueOf(ld));
+            } else {
+                alu.buscarAlumnoDni(in);
+            }
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
