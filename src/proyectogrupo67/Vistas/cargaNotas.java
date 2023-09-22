@@ -166,6 +166,7 @@ public class cargaNotas extends javax.swing.JInternalFrame {
           id.actualizarNota(alu, materia, nota);
           } else {
           JOptionPane.showMessageDialog(this, "La nota debe ser mayor-igual a 0 y menor-igual a 10");
+          jComboBox1ActionPerformed(evt);
           }
        } else {
        JOptionPane.showMessageDialog(this, "La nota no fue modificada");
