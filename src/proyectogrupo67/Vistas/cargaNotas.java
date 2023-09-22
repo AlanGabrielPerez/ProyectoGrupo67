@@ -17,8 +17,6 @@ import proyectogrupo67.entidades.Materia;
  * @author Asus
  */
 public class cargaNotas extends javax.swing.JInternalFrame {
-    MateriaData md = new MateriaData();
-    AlumnoData ad = new AlumnoData();
     InscripcionData id = new InscripcionData();
     private DefaultTableModel modelo = new DefaultTableModel(){
     public boolean isCellEditable(int fila, int columna){
