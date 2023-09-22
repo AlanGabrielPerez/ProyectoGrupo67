@@ -155,20 +155,19 @@ public class cargaNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-      jComboBox1ActionPerformed(evt);
-      Alumno alu = new Alumno();
-      Materia mat = new Materia();
-      
-      
-      int colum = (Integer) modelo.getValueAt(jTable1.getSelectedRow(),2);
-      modelo.setValueAt(colum, jTable1.getSelectedRow(), 2);
-      int not = (Integer) modelo.getValueAt(jTable1.getSelectedRow(),2);
-      Alumno idAlumno = (Alumno) modelo.getValueAt(jTable1.getSelectedRow(), 0);
-      alu.setIdAlumno(idAlumno.getIdAlumno());
-      Materia idMateria = (Materia) modelo.getValueAt(jTable1.getSelectedRow(), 1);
-      mat.setIdMateria(idMateria.getIdMateria());
-      Inscripcion i = new Inscripcion(alu, mat, not);
-      id.actualizarNota(i.getAlumno().getIdAlumno(), i.getMateria().getIdMateria(), i.getNota());
+    int columna = jTable1.getSelectedRow();
+    int alu = ((Alumno)jComboBox1.getSelectedItem()).getIdAlumno();
+    int materia = (Integer) modelo.getValueAt(columna, 0);
+        if (jTable1.getSelectedRow() >= 0){
+       if (modelo.getValueAt(columna, 2).getClass() == "".getClass()){
+          int nota = Integer.parseInt((String)modelo.getValueAt(columna, 2));
+          id.actualizarNota(alu, materia, nota);
+       } else {
+       JOptionPane.showMessageDialog(this, "La nota no fue modificada");
+       }
+    } else {
+    JOptionPane.showMessageDialog(this, "No hay materia seleccionada");
+    }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
