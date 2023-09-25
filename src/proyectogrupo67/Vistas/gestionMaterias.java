@@ -191,29 +191,23 @@ public class gestionMaterias extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        
-        if (jtCodigo.getText().isEmpty()){
-            
+
+        if (jtCodigo.getText().isEmpty()) {
+
             JOptionPane.showMessageDialog(null, "Ingrese el codigo de la materia.");
         } else {
-        boolean ok = false;
-        int codigo = Integer.parseInt(jtCodigo.getText());             
-        for (Materia m:matData.listarMaterias()){
-            if (codigo == m.getIdMateria()){
-                ok = true;
-                break;         
-            }
-        }
-        if(ok) {
+            
+            int codigo = Integer.parseInt(jtCodigo.getText());
+            if (comprobar(codigo)) {
                 jtNombre.setText(matData.buscarMateria(codigo).getNombre());
                 jtAño.setText(matData.buscarMateria(codigo).getAñoMateria() + "");
                 jrbEstado.setSelected(matData.buscarMateria(codigo).getActivo());
-        }else {
+            } else {
                 matData.buscarMateria(codigo);
                 setCampos();
+            }
         }
-        }
-         
+
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
@@ -231,16 +225,19 @@ public class gestionMaterias extends javax.swing.JInternalFrame {
         } else {
             
             Integer cod=Integer.parseInt(jtCodigo.getText());
+            if (comprobar(cod)){
             matData.eliminarMateria(cod);
             jbNuevoActionPerformed(evt);
-            
+            } else {
+            matData.buscarMateria(cod);
+            }
         }
 
 
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-             
+           
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
@@ -305,5 +302,15 @@ public class gestionMaterias extends javax.swing.JInternalFrame {
         jrbEstado.setSelected(false);
     
     }
+    
+    private boolean comprobar(int id){
+        boolean ok = false;
+   for (Materia m: matData.listarMaterias()){
+   if (m.getIdMateria() == id){
+       ok = true;
+       break;
+   } 
+    } return ok;
+   }
     
 }
