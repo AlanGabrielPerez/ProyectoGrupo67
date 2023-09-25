@@ -1,56 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+  Proyecto transversal ULP - Argentina programa 4.0
+      
+  Equipo n° 67
+    -Baravino, Julian;
+    -Cuervo, Gabriel;
+    -Perez, Alan; 
+
  */
+
 package proyectogrupo67;
 
-import java.time.LocalDate;
-import java.time.Month;
-import proyectogrupo67.ADatos.AlumnoData;
-import proyectogrupo67.ADatos.InscripcionData;
-import proyectogrupo67.ADatos.MateriaData;
-import proyectogrupo67.entidades.Alumno;
-import proyectogrupo67.entidades.Inscripcion;
-import proyectogrupo67.entidades.Materia;
-
-/**
- *
- * @author Asus
- */
 public class ProyectoGrupo67 {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-       // Alumno alu = new Alumno (8,"NetBeans", "F", LocalDate.of(1898, 03, 20), true, 23435345);
-        ///AlumnoData enviar = new AlumnoData();
-        //enviar.guardarAlumno(alu);
-        //enviar.modificarAlumno(alu);
-        //Alumno alum = enviar.buscarAlumnoDni(23435345);
-        //System.out.println(alum.getApellido());
-      
-        //Materia Historia=new Materia(5, "Historia4",1,true);
-        //MateriaData mat=new MateriaData();
-        
-        //mat.guardarMateria(Historia);
-        //Alumno alu2 = new Alumno ("jose", "xd", LocalDate.of(1945, 01, 01), true, 96969696);
-        
-        //mat.modificarMateria(Historia);
-     
-       // System.out.println(mat.buscarMateria(2));
-       // Inscripcion inns = new Inscripcion (alu,Historia,3);
-       //insD.guardarInscripcion(inns);
-        
-        
-        InscripcionData insD = new InscripcionData();
-        
-      //for(Materia i:insD.MateriasNoCursadas(1)){
-      //   System.out.println(i);
-      //}
-        
-       // insD.actualizarNota(1, 1, 6);
-    }
-    
+    public static void main(String[] args) {}
+
 }
