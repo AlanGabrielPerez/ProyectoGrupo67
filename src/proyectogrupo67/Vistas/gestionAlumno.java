@@ -249,24 +249,17 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
 
             JOptionPane.showMessageDialog(null, "Ingrese el codigo de la materia.");
         } else {
-            boolean ok = false;
-            String jt = jtDNI.getText();
-            Integer in = Integer.parseInt(jt);
-            for (Alumno a : alu.listarAlumnos()) {
-                if (in == a.getDni()) {
-                    ok = true;
-                    break;
-                }
-            }
-            if (ok) {
+            int dni = Integer.parseInt(jtDNI.getText());
 
-                jtNombre.setText(alu.buscarAlumnoDni(in).getNombre());
-                jtApellido.setText(alu.buscarAlumnoDni(in).getApellido());
-                jcEstado.setSelected(alu.buscarAlumnoDni(in).isActivo());
-                LocalDate ld = alu.buscarAlumnoDni(in).getFechaNacimiento();
+            if (comprobar(dni)) {
+
+                jtNombre.setText(alu.buscarAlumnoDni(dni).getNombre());
+                jtApellido.setText(alu.buscarAlumnoDni(dni).getApellido());
+                jcEstado.setSelected(alu.buscarAlumnoDni(dni).isActivo());
+                LocalDate ld = alu.buscarAlumnoDni(dni).getFechaNacimiento();
                 jDateChooser1.setDate(Date.valueOf(ld));
             } else {
-                alu.buscarAlumnoDni(in);
+                alu.buscarAlumnoDni(dni);
             }
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
@@ -296,13 +289,20 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-       if (jtDNI.getText().isEmpty()){
-           JOptionPane.showMessageDialog(this, "Rellene correctamente el campo del dni");
-       } else {
-           Integer dni = Integer.parseInt(jtDNI.getText());
-           alu.eliminarAlumno(alu.buscarAlumnoDni(dni).getIdAlumno());
-           jbNuevoActionPerformed(evt);
-       }
+  
+        if (jtDNI.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Rellene correctamente el campo del dni");
+        } else {
+
+            Integer dni = Integer.parseInt(jtDNI.getText());
+            if (comprobar(dni)) {
+                alu.eliminarAlumno(alu.buscarAlumnoDni(dni).getIdAlumno());
+                jbNuevoActionPerformed(evt);
+            } else {
+                alu.buscarAlumnoDni(dni);
+            }
+
+        }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -338,4 +338,18 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtDNI;
     private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
+
+ private boolean comprobar(int dni){
+     boolean ok = false;
+ 
+            for (Alumno a : alu.listarAlumnos()) {
+                if (dni == a.getDni()) {
+                    ok = true;
+                    break;
+                }
+            }
+ 
+     return ok; 
+ }
+ 
 }
