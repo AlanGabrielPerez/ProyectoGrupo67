@@ -2,7 +2,7 @@
   Proyecto transversal ULP - Argentina programa 4.0
       
   Equipo n° 67
-    -Baravino, Julian;
+    -Barabino, Julian;
     -Cuervo, Gabriel;
     -Perez, Alan; 
 
