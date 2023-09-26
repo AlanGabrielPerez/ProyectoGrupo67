@@ -17,7 +17,7 @@ import proyectogrupo67.entidades.Materia;
  * @author Asus
  */
 public class cargaNotas extends javax.swing.JInternalFrame {
-    MateriaData md = new MateriaData();
+    
     AlumnoData ad = new AlumnoData();
     InscripcionData id = new InscripcionData();
     private DefaultTableModel modelo = new DefaultTableModel(){
@@ -186,15 +186,10 @@ public class cargaNotas extends javax.swing.JInternalFrame {
        modelo.setRowCount(0);
        int nota;
        Alumno alu = (Alumno)jComboBox1.getSelectedItem();
-       for (Materia m: id.obtenerMateriasCursadas(alu.getIdAlumno())){
-           for (Inscripcion i: id.obtenerInscripcionesPorAlumno(alu.getIdAlumno())){
-           if (m.getIdMateria()==i.getMateria().getIdMateria()){
+          for (Inscripcion i: id.obtenerInscripcionesPorAlumno(alu.getIdAlumno())){
                nota = i.getNota();
-               modelo.addRow(new Object[]{m.getIdMateria(),m.getNombre(),nota});
-           break;
+               modelo.addRow(new Object[]{i.getMateria().getIdMateria(),i.getMateria().getNombre(),nota});
            }
-           }
-       }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
