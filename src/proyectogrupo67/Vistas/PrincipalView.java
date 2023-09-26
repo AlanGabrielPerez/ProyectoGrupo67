@@ -8,7 +8,9 @@ package proyectogrupo67.Vistas;
 import javax.swing.ImageIcon;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
+import proyectogrupo67.ADatos.Conexion;
 
 /**
  *
@@ -16,12 +18,21 @@ import javax.swing.JOptionPane;
  */
 public class PrincipalView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PrincipalView
-     */
+     private Connection con;
+    
     public PrincipalView() {
         initComponents();
         this.setLocationRelativeTo(null);
+        con = Conexion.getConnection();
+        if (con == null) {            
+            ImageIcon icono = new ImageIcon("src/VistasIcons/errorDatabase32.png");
+            JOptionPane.showMessageDialog(this, "No esta conectado a una base de datos", "Error conexion a base de datos", WIDTH, icono);
+            jMenuBar1.setVisible(false);
+            
+        }else{
+            jbReconectar.setVisible(false);
+            jbReconectar.setEnabled(false);
+        }
     }
 
     /**
@@ -42,6 +53,7 @@ public class PrincipalView extends javax.swing.JFrame {
             }
         }
         ;
+        jbReconectar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmFormularioAlumno = new javax.swing.JMenuItem();
@@ -55,16 +67,33 @@ public class PrincipalView extends javax.swing.JFrame {
         MenuSALIR = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de gestión ULP");
+
+        jbReconectar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/VistasIcons/Database32 .png"))); // NOI18N
+        jbReconectar.setToolTipText("RECONECTAR BASE DE DATOS");
+        jbReconectar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbReconectarActionPerformed(evt);
+            }
+        });
+
+        Desktop.setLayer(jbReconectar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout DesktopLayout = new javax.swing.GroupLayout(Desktop);
         Desktop.setLayout(DesktopLayout);
         DesktopLayout.setHorizontalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DesktopLayout.createSequentialGroup()
+                .addContainerGap(450, Short.MAX_VALUE)
+                .addComponent(jbReconectar)
+                .addGap(88, 88, 88))
         );
         DesktopLayout.setVerticalGroup(
             DesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 577, Short.MAX_VALUE)
+            .addGroup(DesktopLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(jbReconectar)
+                .addContainerGap(471, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Alumno");
@@ -202,6 +231,23 @@ public class PrincipalView extends javax.swing.JFrame {
                     }
     }//GEN-LAST:event_MenuSALIRMouseClicked
 
+    private void jbReconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReconectarActionPerformed
+        con = Conexion.getConnection();
+        if (con == null) {            
+            ImageIcon icono = new ImageIcon("src/VistasIcons/errorDatabase32.png");
+            JOptionPane.showMessageDialog(this, "No esta conectado a una base de datos",
+                    "Error conexion a base de datos", WIDTH, icono);
+        } else {
+            ImageIcon icono = new ImageIcon("src/VistasIcons/okDatabase32.png");
+            JOptionPane.showMessageDialog(this, "Conectado a la base de datos.",
+                    "Conexion base de datos", WIDTH, icono);
+            jMenuBar1.setVisible(true);
+            jbReconectar.setVisible(false);
+            jbReconectar.setEnabled(false);
+            
+        }
+    }//GEN-LAST:event_jbReconectarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -244,6 +290,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JButton jbReconectar;
     private javax.swing.JMenuItem jmAdminInscripciones;
     private javax.swing.JMenu jmAdminNotas;
     private javax.swing.JMenuItem jmCargaNotas;

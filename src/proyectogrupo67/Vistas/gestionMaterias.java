@@ -198,10 +198,13 @@ public class gestionMaterias extends javax.swing.JInternalFrame {
         } else {
             
             int codigo = Integer.parseInt(jtCodigo.getText());
-            if (comprobar(codigo)) {
+            if (comprobar(codigo) || comprobarNolistadas(codigo)) {
                 jtNombre.setText(matData.buscarMateria(codigo).getNombre());
                 jtAño.setText(matData.buscarMateria(codigo).getAñoMateria() + "");
                 jrbEstado.setSelected(matData.buscarMateria(codigo).getActivo());
+                    if(!matData.buscarMateria(codigo).getActivo()){
+                        JOptionPane.showMessageDialog(this, "La materia esta inactiva.");
+                    }
             } else {
                 matData.buscarMateria(codigo);
                 setCampos();
@@ -243,18 +246,25 @@ public class gestionMaterias extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
        
-        if (!jtNombre.getText().isEmpty()||!jtAño.getText().isEmpty()) {
-
-            Materia materia=new Materia();
-            
+        if (!jtNombre.getText().isEmpty() || !jtAño.getText().isEmpty()) {
+            Materia materia = new Materia();
             materia.setNombre(jtNombre.getText());
             materia.setAñoMateria(Integer.parseInt(jtAño.getText()));
             materia.setActivo(jrbEstado.isSelected());
-            matData.guardarMateria(materia);
-            
+            if (!jtCodigo.getText().isEmpty()) {
+                int cod = Integer.parseInt(jtCodigo.getText());
+                if (comprobar(cod) || comprobarNolistadas(cod)) {
+                    materia.setIdMateria(cod);
+                    matData.modificarMateria(materia);
+                } else {
+                    matData.guardarMateria(materia);
+                }
+            } else {
+                matData.guardarMateria(materia);
+            }
 
         } else {
-            
+
             JOptionPane.showMessageDialog(null, "Campos vacios");
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
@@ -303,14 +313,26 @@ public class gestionMaterias extends javax.swing.JInternalFrame {
     
     }
     
-    private boolean comprobar(int id){
+    private boolean comprobar(int id) {
         boolean ok = false;
-   for (Materia m: matData.listarMaterias()){
-   if (m.getIdMateria() == id){
-       ok = true;
-       break;
-   } 
-    } return ok;
-   }
-    
+        for (Materia m : matData.listarMaterias()) {
+            if (m.getIdMateria() == id) {
+                ok = true;
+                break;
+            }
+        }
+        return ok;
+    }
+
+    private boolean comprobarNolistadas(int id) {
+        boolean ok = false;
+        for (Materia m : matData.listaMateriasInactivas()) {
+            if (m.getIdMateria() == id) {
+                ok = true;
+                break;
+            }
+        }
+        return ok;
+    }
+
 }

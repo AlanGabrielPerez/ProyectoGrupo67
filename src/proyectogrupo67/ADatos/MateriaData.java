@@ -55,7 +55,7 @@ public class MateriaData {
                 JOptionPane.showMessageDialog(null, "Materia agregada exitosamente!");
 
             }
-
+             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Materia");
         }
@@ -79,7 +79,7 @@ public class MateriaData {
                 JOptionPane.showMessageDialog(null, "Materia modificada exitosamente!");
 
             }
-
+             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error de Update");
 
@@ -162,11 +162,39 @@ public class MateriaData {
 
                 JOptionPane.showMessageDialog(null, "Materia dada de baja");
             }
-
+             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al elimnar materia");
         }
 
     }
+    
+    public List<Materia> listaMateriasInactivas() {
 
+        String sql = "SELECT idMateria, nombre, año FROM materia WHERE activo = 0";
+        ArrayList<Materia> materias = new ArrayList<>();
+
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Materia materia = new Materia();
+                materia.setIdMateria(rs.getInt("idMateria"));
+                materia.setNombre(rs.getString("nombre"));
+                materia.setAñoMateria(rs.getInt("año"));
+                materia.setActivo(Boolean.FALSE);
+                materias.add(materia);
+
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error SQL");
+        }
+        return materias;
+
+    }
 }
