@@ -251,13 +251,17 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
         } else {
             int dni = Integer.parseInt(jtDNI.getText());
 
-            if (comprobar(dni)) {
+            if (comprobar(dni) || comprobarInactivos(dni)) {
 
                 jtNombre.setText(alu.buscarAlumnoDni(dni).getNombre());
                 jtApellido.setText(alu.buscarAlumnoDni(dni).getApellido());
                 jcEstado.setSelected(alu.buscarAlumnoDni(dni).isActivo());
                 LocalDate ld = alu.buscarAlumnoDni(dni).getFechaNacimiento();
                 jDateChooser1.setDate(Date.valueOf(ld));
+                if (!alu.buscarAlumnoDni(dni).isActivo()) {
+                    JOptionPane.showMessageDialog(this, "El alumno esta inactivo.");
+                }
+
             } else {
                 alu.buscarAlumnoDni(dni);
             }
@@ -273,19 +277,25 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbNuevoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-       if (jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty() || jDateChooser1.getDate() == null || jtDNI.getText().isEmpty() ){
-           JOptionPane.showMessageDialog(this, "Rellene correctamente los campos");
-       } else {
-           Alumno alumno = new Alumno();
-           alumno.setNombre(jtNombre.getText());
-           alumno.setApellido(jtApellido.getText());
-           alumno.setDni(Integer.parseInt(jtDNI.getText()));      
-           alumno.setActivo(jcEstado.isSelected());
-           LocalDate ld = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-           alumno.setFechaNacimiento(ld);
-           alu.guardarAlumno(alumno);
-           jbNuevoActionPerformed(evt);
-       }
+        if (jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty() || jDateChooser1.getDate() == null || jtDNI.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Rellene correctamente los campos");
+        } else {
+            Alumno alumno = new Alumno();
+            alumno.setNombre(jtNombre.getText());
+            alumno.setApellido(jtApellido.getText());
+            int dni = Integer.parseInt(jtDNI.getText());
+            alumno.setDni(dni);
+            alumno.setActivo(jcEstado.isSelected());
+            LocalDate ld = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            alumno.setFechaNacimiento(ld);
+            if (comprobar(dni) || comprobarInactivos(dni)) {
+                alu.modificarAlumno(alumno);
+                jbNuevoActionPerformed(evt);
+            } else {
+                alu.guardarAlumno(alumno);
+                jbNuevoActionPerformed(evt);
+            }
+        }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
@@ -339,17 +349,30 @@ public class gestionAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtNombre;
     // End of variables declaration//GEN-END:variables
 
- private boolean comprobar(int dni){
-     boolean ok = false;
- 
-            for (Alumno a : alu.listarAlumnos()) {
-                if (dni == a.getDni()) {
-                    ok = true;
-                    break;
-                }
+    private boolean comprobar(int dni) {
+        boolean ok = false;
+
+        for (Alumno a : alu.listarAlumnos()) {
+            if (dni == a.getDni()) {
+                ok = true;
+                break;
             }
+        }
+
+        return ok;
+    }
  
-     return ok; 
- }
- 
+        private boolean comprobarInactivos(int dni) {
+        boolean ok = false;
+
+        for (Alumno a : alu.listarAlumnos()) {
+            if (dni == a.getDni()) {
+                ok = true;
+                break;
+            }
+        }
+
+        return ok;
+    }
+    
 }

@@ -180,5 +180,29 @@ public class AlumnoData {
         
     }
     
+     public List <Alumno> listarAlumnosInactivos(){
+    String sql = "SELECT `idAlumno`, `dni`, `apellido`, `nombre`, `fechaN` FROM `alumno`WHERE estado = 0";   
+    ArrayList <Alumno> alumnos = new ArrayList<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+            Alumno alum = new Alumno();
+                alum.setIdAlumno(rs.getInt("idAlumno"));
+                alum.setDni(rs.getInt("dni"));
+                alum.setApellido(rs.getString("apellido"));
+                alum.setNombre(rs.getString("nombre"));
+                alum.setFechaNacimiento(rs.getDate("fechaN").toLocalDate());
+                alum.setActivo(false);
+                alumnos.add(alum);
+                
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error de mensaje sql");
+        }
+        
+    return alumnos; 
+    }
     
 }
